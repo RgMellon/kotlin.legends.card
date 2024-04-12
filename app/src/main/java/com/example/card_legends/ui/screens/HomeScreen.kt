@@ -13,11 +13,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.card_legends.ui.components.ContrastCard
+import com.example.card_legends.ui.states.HomeState
 
 val itemsList = (0..5).toList()
 
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier) {
+fun HomeScreen(modifier: Modifier = Modifier, homeState: HomeState) {
     Column(modifier = modifier.padding(15.dp)) {
         Text(
             modifier = Modifier.padding(0.dp, 10.dp),
@@ -30,7 +31,7 @@ fun HomeScreen(modifier: Modifier = Modifier) {
             contentPadding = PaddingValues(2.dp),
             horizontalArrangement = Arrangement.spacedBy(6.dp)
         ) {
-            items(itemsList) {
+            items(homeState.bestPlayersOfWeek) {
                 ContrastCard()
             }
         }

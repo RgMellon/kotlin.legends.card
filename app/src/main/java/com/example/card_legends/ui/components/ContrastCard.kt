@@ -2,10 +2,15 @@ package com.example.card_legends.ui.components
 
 import android.graphics.drawable.shapes.Shape
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CardDefaults
@@ -13,11 +18,18 @@ import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.example.card_legends.ui.theme.Purple100
 import com.example.card_legends.ui.theme.Purple200
+import com.example.card_legends.ui.theme.Yellow
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -33,11 +45,68 @@ fun ContrastCard(modifier: Modifier = Modifier) {
             .height(250.dp)
     ) {
         Column(
-            modifier
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = modifier
                 .background(Purple100)
                 .fillMaxSize()
         ) {
-            Text(text = "opi")
+            Box(
+                modifier = Modifier
+                    .clip(RoundedCornerShape(80.dp))
+                    .width(90.dp)
+                    .height(90.dp)
+                    .padding(1.dp)
+                    .border(
+                        width = 1.dp,
+                        color = Yellow,
+                        shape = RoundedCornerShape(50.dp)
+                    )
+            ) {
+                AsyncImage(
+                    modifier = modifier.fillMaxSize(),
+                    model = ImageRequest.Builder(LocalContext.current)
+                        .data("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGXpXEKBaHu8BD609JDkePV5Nadwv4twdnKCWYJXjpWg&s")
+                        .crossfade(true)
+                        .build(),
+                    contentDescription = null
+                )
+            }
+
+            Text(
+                modifier = Modifier.padding(0.dp, 10.dp),
+                text = "Titan",
+                color = Color.White,
+                fontSize = 18.sp
+            )
+
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceAround
+            ) {
+                Box(modifier = Modifier.width(20.dp)) {
+                    AsyncImage(
+                        model = ImageRequest.Builder(LocalContext.current)
+                            .data("https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-clash/global/default/assets/images/position-selector/positions/icon-position-bottom.png")
+                            .crossfade(true)
+                            .build(),
+                        contentDescription = null
+                    )
+                }
+                Text(
+                    modifier = Modifier.padding(4.dp, 0.dp),
+                    text = "ADC",
+                    color = Color.White,
+                    fontSize = 14.sp
+                )
+            }
+
+            Text(
+                modifier = Modifier.padding(0.dp, 10.dp, 0.dp, 0.dp),
+                text = "Nota 89",
+                color = Color.White,
+                fontSize = 16.sp
+            )
         }
     }
 }

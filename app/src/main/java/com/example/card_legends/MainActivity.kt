@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.card_legends.ui.screens.HomeScreen
+import com.example.card_legends.ui.states.HomeState
 import com.example.card_legends.ui.theme.Card_legendsTheme
 import com.example.card_legends.ui.theme.Purple200
 
@@ -20,11 +21,12 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             Card_legendsTheme {
+                val homeState = HomeState()
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = Purple200
                 ) {
-                    HomeScreen(modifier = Modifier.fillMaxWidth())
+                    HomeScreen(modifier = Modifier.fillMaxWidth(), homeState)
                 }
             }
         }
@@ -35,6 +37,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun GreetingPreview() {
     Card_legendsTheme {
-        HomeScreen()
+        HomeScreen(homeState = HomeState())
     }
 }
