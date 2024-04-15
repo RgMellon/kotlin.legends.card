@@ -32,7 +32,7 @@ fun HomeScreen(modifier: Modifier = Modifier, homeState: HomeState) {
             horizontalArrangement = Arrangement.spacedBy(6.dp)
         ) {
             items(homeState.bestPlayersOfWeek) {
-                ContrastCard()
+                ContrastCard(it.player)
             }
         }
 

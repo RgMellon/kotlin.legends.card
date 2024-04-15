@@ -27,13 +27,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.example.card_legends.model.Player
 import com.example.card_legends.ui.theme.Purple100
 import com.example.card_legends.ui.theme.Purple200
 import com.example.card_legends.ui.theme.Yellow
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ContrastCard(modifier: Modifier = Modifier) {
+fun ContrastCard(player: Player, modifier: Modifier = Modifier) {
     ElevatedCard(
         elevation = CardDefaults.cardElevation(
             defaultElevation = 1.dp
@@ -66,7 +67,7 @@ fun ContrastCard(modifier: Modifier = Modifier) {
                 AsyncImage(
                     modifier = modifier.fillMaxSize(),
                     model = ImageRequest.Builder(LocalContext.current)
-                        .data("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGXpXEKBaHu8BD609JDkePV5Nadwv4twdnKCWYJXjpWg&s")
+                        .data(player.photo)
                         .crossfade(true)
                         .build(),
                     contentDescription = null
@@ -75,7 +76,7 @@ fun ContrastCard(modifier: Modifier = Modifier) {
 
             Text(
                 modifier = Modifier.padding(0.dp, 10.dp),
-                text = "Titan",
+                text = player.nickName,
                 color = Color.White,
                 fontSize = 18.sp
             )
@@ -95,7 +96,7 @@ fun ContrastCard(modifier: Modifier = Modifier) {
                 }
                 Text(
                     modifier = Modifier.padding(4.dp, 0.dp),
-                    text = "ADC",
+                    text = player.role,
                     color = Color.White,
                     fontSize = 14.sp
                 )
@@ -103,7 +104,7 @@ fun ContrastCard(modifier: Modifier = Modifier) {
 
             Text(
                 modifier = Modifier.padding(0.dp, 10.dp, 0.dp, 0.dp),
-                text = "Nota 89",
+                text = "Nota ${player.rate}",
                 color = Color.White,
                 fontSize = 16.sp
             )

@@ -15,7 +15,9 @@ import com.example.card_legends.ui.screens.HomeScreen
 import com.example.card_legends.ui.states.HomeState
 import com.example.card_legends.ui.theme.Card_legendsTheme
 import com.example.card_legends.ui.theme.Purple200
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

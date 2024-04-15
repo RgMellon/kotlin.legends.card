@@ -7,7 +7,8 @@ val mockPlayer = Player(
     "10239",
     "Titan",
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGXpXEKBaHu8BD609JDkePV5Nadwv4twdnKCWYJXjpWg&s",
-    role = "ADC"
+    "ADC",
+    "99",
 )
 
 
