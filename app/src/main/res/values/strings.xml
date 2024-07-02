@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Card_legends</string>
+    <string name="rank_players">Rank Players</string>
+    <string name="home">Home</string>
 </resources>
