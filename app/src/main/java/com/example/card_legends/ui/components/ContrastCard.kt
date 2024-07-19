@@ -39,14 +39,12 @@ import com.example.card_legends.ui.theme.Yellow
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ContrastCard(player: Player, modifier: Modifier = Modifier, navController: NavController) {
-
-    Log.i("ContrastCard", "ContrastCard: $player")
     ElevatedCard(
         elevation = CardDefaults.cardElevation(
             defaultElevation = 1.dp
         ),
         onClick = {
-            navController.navigate("playerProfile/123")
+            navController.navigate("playerProfile/${player.id}")
         },
         modifier = Modifier
             .clip(RoundedCornerShape(10.dp))

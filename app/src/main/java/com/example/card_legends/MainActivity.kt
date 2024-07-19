@@ -71,7 +71,7 @@ fun App() {
                 .padding(innerPadding)
                 .background(
                     Purple200
-                )
+                ).fillMaxSize()
         )
     }
 }

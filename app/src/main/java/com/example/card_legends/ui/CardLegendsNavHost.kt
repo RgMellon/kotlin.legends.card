@@ -3,6 +3,7 @@ package com.example.card_legends.ui
 import androidx.compose.foundation.background
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -11,6 +12,8 @@ import androidx.navigation.navArgument
 import com.example.card_legends.navigation.homeGraph
 import com.example.card_legends.ui.screens.PlayerProfileScreen
 import com.example.card_legends.ui.theme.Purple200
+import com.example.card_legends.ui.viewModel.HomeViewModel
+import com.example.card_legends.ui.viewModel.PlayerProfileViewModel
 
 //O NavHostController é uma classe que gerencia a navegação dentro de um aplicativo Android
 // . Ele é responsável por coordenar a navegação entre destinos definidos em um gráfico
@@ -29,11 +32,11 @@ fun CardLegendsNavHost(
         homeGraph(navController);
 
         composable(
-            route = "playerProfile/{id}",
-            arguments = listOf(navArgument("id") { type = NavType.StringType })
+            route = "playerProfile/{profileId}",
+            arguments = listOf(navArgument("profileId") { type = NavType.StringType })
         ) { backStackEntry ->
-            val itemId = backStackEntry.arguments?.getString("itemId") ?: ""
-            PlayerProfileScreen(id = itemId)
+            val viewModel = hiltViewModel<PlayerProfileViewModel>()
+            PlayerProfileScreen(viewModel, navController)
         }
     }
 }

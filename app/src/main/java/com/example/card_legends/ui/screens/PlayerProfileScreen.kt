@@ -13,8 +13,21 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.TopAppBarColors
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -23,12 +36,14 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import coil.size.Scale
 import com.example.card_legends.ui.theme.Purple100
 import com.example.card_legends.ui.theme.Purple200
 import com.example.card_legends.ui.theme.Yellow
+import com.example.card_legends.ui.viewModel.PlayerProfileViewModel
 import me.bytebeats.views.charts.bar.BarChart
 import me.bytebeats.views.charts.bar.BarChartData
 import me.bytebeats.views.charts.bar.render.bar.SimpleBarDrawer
@@ -36,89 +51,133 @@ import me.bytebeats.views.charts.bar.render.label.SimpleLabelDrawer
 import me.bytebeats.views.charts.bar.render.xaxis.SimpleXAxisDrawer
 import me.bytebeats.views.charts.bar.render.yaxis.SimpleYAxisDrawer
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PlayerProfileScreen(id: String) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Purple100)
-    ) {
+fun PlayerProfileScreen(viewModel: PlayerProfileViewModel, navController: NavController) {
+    val profileState by viewModel.uiState.collectAsState();
 
-        Row(
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.Bottom,
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(120.dp)
-                .background(Yellow)
-        ) {
-            Box(
-                modifier = Modifier
-                    .offset(y = 40.dp)
-                    .clip(RoundedCornerShape(120.dp))
-                    .width(120.dp)
-                    .height(120.dp)
-                    .border(
-                        width = 2.dp,
-                        color = Purple200,
-                        shape = RoundedCornerShape(100.dp)
-                    )
-            ) {
-                AsyncImage(
-                    modifier = Modifier.fillMaxSize(),
-                    model = ImageRequest.Builder(LocalContext.current)
-                        .data("https://s2-ge.glbimg.com/LEt1Xnj9WJSf9wHdUiZcA4S9zGs=/0x0:1920x1280/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_bc8228b6673f488aa253bbcb03c80ec5/internal_photos/bs/2021/D/x/BhvHUrSXCcpPt2iDQi2g/ranger-flamengo-lol-cblol-2020-etapa-1-riot-games.jpg")
-                        .crossfade(true)
-                        .scale(Scale.FIT)
-                        .build(),
-                    contentScale = ContentScale.Crop,
-                    contentDescription = null
-                )
-            }
-
-        }
-
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                contentColor = Color.White,
+                backgroundColor = Yellow,
+                title = {
+                    Text("")
+                },
+                navigationIcon = {
+                    IconButton(onClick = {
+                        navController.popBackStack()
+                    }) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Localized description"
+                        )
+                    }
+                },
+            )
+        },
+    ) { innerPadding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(0.dp, 60.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+                .background(Purple100)
+                .padding(innerPadding)
         ) {
-            Text(text = "Ranger $id", color = Color.White, fontSize = 18.sp)
-
             Row(
-                modifier = Modifier.padding(0.dp, 17.dp),
-                horizontalArrangement = Arrangement.spacedBy(17.dp)
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.Bottom,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(100.dp)
+                    .background(Yellow)
             ) {
-                Text(text = "Min : 100", color = Color.White, fontSize = 16.sp)
-                Text(text = "Média : 100", color = Yellow, fontSize = 16.sp)
-                Text(text = "Max : 100", color = Color.White, fontSize = 16.sp)
-            }
-
-
-            Column(modifier = Modifier.padding(0.dp, 50.dp)) {
-                val barChartData = BarChartData(
-                    bars = listOf(
-                        BarChartData.Bar(label = "", value = 10f, color = Yellow),
-                        BarChartData.Bar(label = "", value = 20f, color = Yellow),
-                        BarChartData.Bar(label = "", value = 10f, color = Yellow),
-                        BarChartData.Bar(label = "", value = 25f, color = Yellow)
+                Box(
+                    modifier = Modifier
+                        .offset(y = 40.dp)
+                        .clip(RoundedCornerShape(120.dp))
+                        .width(100.dp)
+                        .height(100.dp)
+                        .border(
+                            width = 2.dp,
+                            color = Purple200,
+                            shape = RoundedCornerShape(100.dp)
+                        )
+                ) {
+                    AsyncImage(
+                        modifier = Modifier.fillMaxSize(),
+                        model = ImageRequest.Builder(LocalContext.current)
+                            .data(profileState.profile?.photo)
+                            .crossfade(true)
+                            .scale(Scale.FIT)
+                            .build(),
+                        contentScale = ContentScale.Crop,
+                        contentDescription = null
                     )
-                )
+                }
 
-
-
-                BarChart(
-                    barChartData = barChartData,
-                    modifier = Modifier.height(200.dp),
-                    barDrawer = SimpleBarDrawer(),
-                    xAxisDrawer = SimpleXAxisDrawer(),
-                    labelDrawer = SimpleLabelDrawer(),
-                    yAxisDrawer = SimpleYAxisDrawer()
-
-                )
             }
 
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(0.dp, 60.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = "${profileState.profile?.nickName} ",
+                    color = Color.White,
+                    fontSize = 18.sp
+                )
+
+                Row(
+                    modifier = Modifier.padding(0.dp, 17.dp),
+                    horizontalArrangement = Arrangement.spacedBy(17.dp)
+                ) {
+                    Text(
+                        text = "Min : ${profileState.profile?.minRate}",
+                        color = Color.White,
+                        fontSize = 16.sp
+                    )
+                    Text(
+                        text = "Média : ${profileState.profile?.maxRate}",
+                        color = Yellow,
+                        fontSize = 16.sp
+                    )
+                    Text(
+                        text = "Max : ${profileState.profile?.averageRate}",
+                        color = Color.White,
+                        fontSize = 16.sp
+                    )
+                }
+
+
+                Column(modifier = Modifier.padding(0.dp, 50.dp)) {
+
+                    val barChartData = profileState.profile?.rates?.map {
+                        BarChartData.Bar(label = "", value = it.rate, color = Yellow)
+                    }?.let {
+                        BarChartData(
+                            bars = it
+                        )
+                    }
+
+
+
+                    if (barChartData != null) {
+                        BarChart(
+                            barChartData = barChartData,
+                            modifier = Modifier.height(240.dp),
+                            barDrawer = SimpleBarDrawer(),
+                            xAxisDrawer = SimpleXAxisDrawer(),
+                            labelDrawer = SimpleLabelDrawer(),
+                            yAxisDrawer = SimpleYAxisDrawer()
+
+                        )
+                    }
+                }
+
+            }
         }
     }
+
 }

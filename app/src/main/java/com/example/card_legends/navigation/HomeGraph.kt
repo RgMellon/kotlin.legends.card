@@ -5,10 +5,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import com.example.card_legends.ui.screens.HomeScreen
-import com.example.card_legends.ui.screens.PlayerProfileScreen
 import com.example.card_legends.ui.screens.RankedAllPlayersScreen
 import com.example.card_legends.ui.viewModel.HomeViewModel
 import com.example.card_legends.ui.viewModel.MvpViewModel

@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MvpViewModel @Inject constructor(
-    private  val mvpService: MvpService
+    private val mvpService: MvpService
 ): ViewModel() {
     private  var onLoadMvpsJob: Job? = null;
 

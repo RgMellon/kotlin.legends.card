@@ -3,6 +3,7 @@ package com.example.card_legends.di.modules
 
 import com.example.card_legends.repositories.BestPlayerRepository
 import com.example.card_legends.repositories.MvpRepository
+import com.example.card_legends.repositories.PlayerProfileRepository
 import com.example.card_legends.repositories.PlayerRepository
 import com.example.card_legends.repositories.StageRepository
 import dagger.Module
@@ -69,6 +70,12 @@ object ApiModule {
     @Singleton
     fun mvpRepository(retrofit: Retrofit): MvpRepository {
         return retrofit.create(MvpRepository::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun PlayerProfileRepository(retrofit: Retrofit): PlayerProfileRepository {
+        return retrofit.create(PlayerProfileRepository::class.java)
     }
 
 }
